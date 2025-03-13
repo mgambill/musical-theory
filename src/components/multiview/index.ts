@@ -1,16 +1,16 @@
-export { default as MultiView } from './MultiView.vue'
+//export { default as MultiView } from './MultiView.vue'
 export { default as View } from './MultiViewPanel.vue'
 
-export const MultiViewInjectionKey = Symbol() as InjectionKey<
+export const MultiViewInjectionKey = Symbol('multiview') as InjectionKey<
   Omit<ReturnType<typeof setup>, 'initialize'>
 >
 
 export type View = {
-  id: string;
-  label: string;
+  id: string
+  label: string
   index: number
-  active: ComputedRef<boolean>,
-  navigate: ()=>void
+  active: ComputedRef<boolean>
+  navigate: () => void
 } & {}
 
 export const setup = (index: MaybeRef<number> = 0) => {
@@ -21,11 +21,11 @@ export const setup = (index: MaybeRef<number> = 0) => {
 
   const register = (options: { id: string; label: string } & {}) => {
     const active = computed(() => isActive(options.id))
-    const navigate= () => {
+    const navigate = () => {
       activeIndex.value = getIndex(options.id)
     }
 
-    const context:View = { ...options, index: views.value.length, active, navigate }
+    const context: View = { ...options, index: views.value.length, active: active, navigate }
     views.value.push(context)
     return context
   }
@@ -37,8 +37,34 @@ export const setup = (index: MaybeRef<number> = 0) => {
   }
 }
 
-export const useMultiView = (index: MaybeRef<number> = 0) => {
-  const context = setup(index)
-  provide(MultiViewInjectionKey, context)
-  return { activeIndex: context.activeIndex, isActive: context.isActive, views: context.views }
-}
+export const MultiView = defineComponent({
+  name: 'MultiView2',
+  props: {
+    modelValue: {
+      type: Number,
+      default: 0,
+    },
+  },
+  emits: ['update:modelValue'],
+  setup(props, { slots, emit }) {
+    // Create a computed binding that works like defineModel in the SFC
+    const currentIndex = computed({
+      get: () => props.modelValue,
+      set: (value) => emit('update:modelValue', value),
+    })
+
+    // Use our multi-view composable with the reactive currentIndex
+    //const { views, activeIndex, isActive } = useMultiView(currentIndex)
+    const context = setup(currentIndex)
+    provide(MultiViewInjectionKey, context)
+    // Return a render function that passes our context as slot props
+    return () => {
+      if (!slots.default) return null
+      return slots.default({
+        views: toValue(context.views),
+        activeIndex: toValue(context.activeIndex),
+        isActive: context.isActive,
+      })
+    }
+  },
+})
