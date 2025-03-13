@@ -1,0 +1,72 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`modifiers correct 1`] = `
+Map {
+  "length" => {
+    "canModify": [Function],
+    "value": [Function],
+  },
+  "toLowerCase" => {
+    "canModify": [Function],
+    "value": [Function],
+  },
+  "toUpperCase" => {
+    "canModify": [Function],
+    "value": [Function],
+  },
+  "age" => {
+    "canModify": [Function],
+    "value": [Function],
+  },
+}
+`;
+
+exports[`rulset handling >  1`] = `
+[
+  "2000-03-05T05:00:00.000Z",
+  [
+    {
+      "args": [],
+      "key": "age",
+    },
+  ],
+]
+`;
+
+exports[`rulset handling > filter 1`] = `[]`;
+
+exports[`rulset handling > get 1`] = `
+[
+  "2000-03-05T05:00:00.000Z",
+  [
+    {
+      "args": [],
+      "key": "age",
+    },
+  ],
+]
+`;
+
+exports[`rulset handling > getValueByPOath 1`] = `
+[
+  "2000-03-05T05:00:00.000Z",
+  [
+    {
+      "args": [],
+      "key": "age",
+    },
+  ],
+]
+`;
+
+exports[`rulset handling > getValueByPath 1`] = `
+[
+  "2000-03-05T05:00:00.000Z",
+  [
+    {
+      "args": [],
+      "key": "age",
+    },
+  ],
+]
+`;
