@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { Field } from '@v3technology/core'
-import { resolveComponentDefinition } from '@v3technology/components'
+import { useComponentContext } from '~/components'
 import PropsPartialItem from '../partials/PropsPartialItem.vue'
 
 const field = defineModel<Field>('field')
-const currentDefinition = computed(() => resolveComponentDefinition(field.value?.control))
+
+const { findDefinitionById } = useComponentContext()
+const currentDefinition = computed(() => findDefinitionById(field.value?.control))
 </script>
 
 <template>

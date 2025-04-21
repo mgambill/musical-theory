@@ -1,0 +1,1 @@
+export { default as WizardLayout } from './wizard/WizardLayout.vue'

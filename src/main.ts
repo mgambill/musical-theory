@@ -6,7 +6,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import { router } from './vendors/router'
 import usePrime from './vendors/primevue'
-import { useComponentRegistry } from '~/plugin'
+import { useComponentRegistry } from '~/components/plugin'
 
 const app = createApp(App)
 const pinia = createPinia()

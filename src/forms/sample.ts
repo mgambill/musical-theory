@@ -1,5 +1,5 @@
 import { form, text, date, dropdown as select, row, panel, number, createOptions, yesno } from '@v3technology/builder'
-import type { Condition } from '@v3technology/rule-engine'
+import type { Condition } from '~/rule-engine'
 //import { type Condition, condition } from '@v3technology/rule-engine'
 
 const condition = (obj: Record<string, any>): Condition => {

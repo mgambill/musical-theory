@@ -49,7 +49,7 @@ test('parse OR condition', () => {
 })
 
 test('parse nested condition with parentheses', () => {
-  const input = "$.property.path == 'value' And ($.model.age > 18 Or $.model.date > {CurrentDate})"
+  const input = "$.property.path == 'value' And ($.model.age > 18 Or $.model.age > {CurrentDate})"
   const expected: Condition = {
     operator: 'And',
     conditions: [
@@ -68,7 +68,7 @@ test('parse nested condition with parentheses', () => {
           },
           {
             operator: 'GreaterThan',
-            property: 'model.date',
+            property: 'model.age',
             value: '{CurrentDate}',
           },
         ],

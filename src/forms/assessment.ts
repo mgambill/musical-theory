@@ -1,7 +1,7 @@
 import type { Form } from '@v3technology/core'
 import * as field from '@v3technology/builder'
 import { createOptions } from '@v3technology/builder'
-import type { Condition } from '@v3technology/rule-engine'
+import type { Condition } from '~/rule-engine'
 //import { condition } from '@v3technology/rule-engine'
 const condition = (o: unknown) => o as Condition
 const form: Form = field.form({

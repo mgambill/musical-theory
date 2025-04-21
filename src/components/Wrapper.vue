@@ -8,6 +8,7 @@ defineOptions({
 
 const attrs = useAttrs()
 const { field } = defineProps<{ field: Field }>()
+//TODO: add support for field validation
 const { useBinding } = useEditorStore()
 const bindings = useBinding(field, attrs)
 </script>

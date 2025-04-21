@@ -1,8 +1,8 @@
-export type ModifierHandler<T = any, R = any, A = unknown> = (value: T, ...args: A[]) => R
-
-export type Modifier<T = any, R = any, A = unknown> = {
-  canModify: (source: T) => boolean
-  value: ModifierHandler<T, R, A>
+export interface Modifier<T, R, U> {
+  canModify: (value: T) => boolean
+  value: (value: U, ...args: unknown[]) => R
 }
 
-export type ModifierMap = Map<string, Modifier>
+export interface ModifierMap {
+  [key: string]: Modifier<unknown, unknown, unknown>
+}

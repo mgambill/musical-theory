@@ -2,7 +2,7 @@
 import { type Form, type StringDictionary } from '@v3technology/core'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
-import { type DisplayModes } from '../'
+import { type DisplayModes } from '~/components'
 import { useEditorStore } from './store'
 import SelectorDock from './SelectorDock.vue'
 import Workspace from './Workspace.vue'
@@ -13,7 +13,7 @@ import LibraryPanel from './panels/LibraryPanel.vue'
 import FieldPanel from './panels/FieldPanel.vue'
 const store = useEditorStore()
 const { initialize } = store
-const { currentField: _currentField } = storeToRefs(store)
+//const { currentField: _currentField } = storeToRefs(store)
 const { initialMode } = defineProps<{ initialMode?: DisplayModes }>()
 const library = defineModel<Form[]>('library')
 const form = defineModel<Form>('form')

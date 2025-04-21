@@ -11,13 +11,13 @@ import type {
   StringDictionary,
 } from '@v3technology/core'
 import { processFields } from '@v3technology/core'
-import { type DisplayModes } from '~/composables/useFormState'
-import { useComponentLookup } from '~/composables/useResolvers'
+import { type DisplayModes } from '~/components/composables/useFormState'
+import { useComponentContext } from '~/components/composables/useResolvers'
 
 //export type DisplayModes = 'edit' | 'code' | FormDisplayMode
 
 export const useEditorStore = defineStore('aetherkit.editor', () => {
-  const { findDefinitionById, definitions } = useComponentLookup()
+  const { findDefinitionById, definitions } = useComponentContext()
   const mode = ref<DisplayModes>('unset')
   const _currentForm = ref({} as Form)
   const _library = ref([] as Form[])
@@ -68,7 +68,7 @@ export const useEditorStore = defineStore('aetherkit.editor', () => {
         groups['entry'].push(css)
       }
     })
-    var arr = []
+    const arr: string[] = []
     for (const [key, value] of Object.entries(groups)) {
       if (key === 'entry') {
         arr.push(
@@ -195,8 +195,6 @@ export const useEditorStore = defineStore('aetherkit.editor', () => {
 
 export const useEditorStoreRef = () => storeToRefs(useEditorStore())
 
-// @ts-ignore
 if (import.meta.hot) {
-  // @ts-ignore
   import.meta.hot.accept(acceptHMRUpdate(useEditorStore, import.meta.hot))
 }

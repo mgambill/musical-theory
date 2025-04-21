@@ -7,7 +7,7 @@ export const MultiViewInjectionKey = Symbol('multiview') as InjectionKey<
 
 export type View = {
   id: string
-  label: string
+  label?: string
   index: number
   active: ComputedRef<boolean>
   navigate: () => void
@@ -19,7 +19,7 @@ export const setup = (index: MaybeRef<number> = 0) => {
   const getIndex = (key: string) => views.value.findIndex((v) => v.id === key)
   const isActive = (id: string) => getIndex(id) === toValue(activeIndex)
 
-  const register = (options: { id: string; label: string } & {}) => {
+  const register = (options: { id: string; label?: string } & {}) => {
     const active = computed(() => isActive(options.id))
     const navigate = () => {
       activeIndex.value = getIndex(options.id)

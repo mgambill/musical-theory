@@ -1,5 +1,5 @@
 import { test, assert, expect } from 'vitest'
-import type { Condition, Modifier } from '../types'
+import type { ComparisonOperators, Condition, LogicicalOperators, Modifier, QuantifierOperators, ValueStateOperators } from '../types'
 
 
 test('getValueByPath', () => {
@@ -132,7 +132,7 @@ const operatorMap: Record<string, ComparisonOperators | LogicicalOperators | Qua
   lt: 'LessThan',
   lte: 'LessThanOrEqualTo',
   in: 'In',
-  nin: 'IsNotIn',
+  notIn: 'NotIn',
   between: 'Between',
   startsWith: 'StartsWith',
   endsWith: 'EndsWith',
@@ -154,7 +154,7 @@ const operatorMap: Record<string, ComparisonOperators | LogicicalOperators | Qua
   isEmpty: 'IsEmpty',
   isNotEmpty: 'IsNotEmpty',
   isNull: 'IsNull',
-  notNull: 'NotNull',
+  notNull: 'IsNotNull',
   isUndefined: 'IsUndefined',
   isDefined: 'IsDefined',
 }
@@ -235,7 +235,7 @@ const negateOperator = (operator: string): Condition['operator'] => {
   const negations: Record<string, Condition['operator']> = {
     IsEmpty: 'IsNotEmpty',
     IsNotEmpty: 'IsEmpty',
-    IsNull: 'NotNull',
+    IsNull: 'IsNotNull',
     NotNull: 'IsNull',
     IsTrue: 'IsFalse',
     IsFalse: 'IsTrue',
@@ -243,8 +243,8 @@ const negateOperator = (operator: string): Condition['operator'] => {
     NotContains: 'Contains',
     EqualTo: 'NotEqualTo',
     NotEqualTo: 'EqualTo',
-    In: 'IsNotIn',
-    IsNotIn: 'In',
+    In: 'NotIn',
+    NotIn: 'In',
     LessThan: 'GreaterThanOrEqualTo',
     GreaterThan: 'LessThanOrEqualTo',
     LessThanOrEqualTo: 'GreaterThan',

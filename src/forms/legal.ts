@@ -1,18 +1,16 @@
 import type { Form } from '@v3technology/core'
 import * as field from '@v3technology/builder'
 import { createOptions } from '@v3technology/builder'
-import { type Condition, type Rule, rule, condition } from '@v3technology/rule-engine'
+import { type Condition, type Rule, rule, condition } from '~/rule-engine'
 
 //import { condition } from '@v3technology/rule-engine'
 
 const rules: Rule[] = [
   rule({
-
     label: 'age-check',
     trigger: 'milestone',
     condition: condition({
-
-      key: 'age-check',
+      property: 'age-check',
       property: 'dob.age()',
       operator: 'LessThanOrEqualTo',
       value: 18,
@@ -30,7 +28,7 @@ const rules: Rule[] = [
     label: 'crime-check',
     trigger: 'milestone',
     condition: condition({
-      key: 'crime-check',
+      property: 'crime-check',
       property: 'crime',
       operator: 'IsTrue',
     }),
@@ -79,16 +77,21 @@ const form: Form = field.form({
               property: 'dob',
               label: 'Date of Birth (mm/dd/yyyy)',
               valueType: 'age',
+              validation: 'required',
             }),
             field.yesno({
               id: '5f96609d-1d92-40e6-a2fc-0ece38e16427',
               label: 'Have you ever been convicted of a crime',
               property: 'crime',
+              validation: 'required',
             }),
             field.date({
               id: 'e2c99733-353f-4ee9-a89d-4206dd37b058',
               label: 'Date You Became a Lawful Permanent Resident (mm/dd/yyyy)',
               property: 'resident_date',
+              validation: {
+                required: 'Date you became a lawful permanent resident is required',
+              },
             }),
             field.radiolist({
               id: 'a6dca597-2656-4c4c-a028-45734ba8009d',
@@ -97,11 +100,13 @@ const form: Form = field.form({
               property: 'gender',
               direction: 'horizontal',
               columns: -1,
+              validation: 'required',
             }),
             field.radiolist({
               id: '7b98f3ca-aa64-45bb-9d72-1824fb85cea2',
               label: 'What is your marital status',
               direction: 'vertical',
+              validation: 'required',
               options: [
                 {
                   value: 'single',
@@ -136,7 +141,7 @@ const form: Form = field.form({
     }),
     field.container({
       id: '135693f9-1fad-45c5-be37-d4bc50bbf402',
-      label: 'Marriage Questions',
+      label: { text: 'Marriage Questions' },
       property: 'marriage-questions',
       disabled: condition({
         property: 'marital',
@@ -192,13 +197,55 @@ const form: Form = field.form({
       id: '8e666bdc-1cf9-4079-98a0-90e60dead11a',
       label: 'Information about your eligibility',
       property: 'eligibility',
-
       fields: [
         field.section({
-          id: 'd436e1cd-3214-42fa-8e05-cbb4b1928c70',
           property: 'eligibility-set',
           fields: [
-            field.heading('Your Current Legal Name (do not provide a nickname)'),
+            field.text({
+              label:
+                'If your residential address is outside the United States and you are filing under Section 319(b), select the USCIS Field Office from the list below where you would like to have your naturalization interview:',
+              property: 'elg_office',
+            }),
+            field.yesno({
+              label:
+                'Have been a lawful permanent resident of the United States for at least 5 years.',
+              property: 'elg5',
+              defaultValue: false,
+            }),
+            field.yesno({
+              label:
+                'Have been a lawful permanent resident of the United States for at least 3 years.  In addition, you have been married to and living with the same U.S. citizen spouse for the last 3 years, and your spouse has been a U.S. citizen for the last 3 years at the time you filed your Form N-400.',
+              property: 'elg3',
+              defaultValue: false,
+            }),
+            field.yesno({
+              label:
+                'Are a lawful permanent resident of the United States and you are the spouse of a U.S. citizen and your U.S. citizen spouse is regularly engaged in specified employment abroad.  (See the Immigration and Nationality Act (INA) section 319(b).)',
+              property: 'elg_spouse',
+              defaultValue: false,
+            }),
+            field.yesno({
+              label: 'Are applying on the basis of qualifying military service.',
+              property: 'elg_military',
+            }),
+            field.text({
+              label: 'Other reason',
+              property: 'elg_other',
+            }),
+          ],
+        }),
+      ],
+    }),
+    field.container({
+      id: '01cf9a12-ea1b-426a-b9d8-bef9de87f673',
+      label: 'Information about youself',
+      property: 'information',
+      fields: [
+        field.section({
+          id: '3c1d3ce5-5d4e-4909-95b6-c4b4701bdf5d',
+          property: 'information-set',
+          fields: [
+            field.label('Your Current Legal Name (do not provide a nickname)'),
             field.row(
               field.text({
                 id: '87dcb3ea-b559-4650-9818-57452aa3b8c6',
@@ -216,7 +263,7 @@ const form: Form = field.form({
                 property: 'legal_lastname',
               }),
             ),
-            field.heading({
+            field.label({
               id: 'dce61ec3-f28f-416d-897a-d71301ae69cc',
               label:
                 'Your Name Exactly As It Appears on Your Permanent Resident Card (if applicable)',
@@ -238,7 +285,7 @@ const form: Form = field.form({
                 property: 'resident_card_lastname',
               }),
             ),
-            field.heading(
+            field.label(
               'Other Names You Have Used Since Birth (include nicknames, aliases, and maiden name, if applicable)',
             ),
             field.row(
@@ -262,6 +309,7 @@ const form: Form = field.form({
               id: '2b486023-f166-45bc-8ac1-0cdae847012c',
               label: 'Would you like to legally change your name?',
               property: 'namechange',
+              defaultValue: false,
             }),
 
             field.row(
@@ -299,7 +347,114 @@ const form: Form = field.form({
             }),
           ],
         }),
+        field.section({
+          id: '6a802fb9-fa86-433a-8fc9-06061a76ba67',
+          property: 'namechange-set',
+          disabled: condition({
+            property: 'namechange',
+            operator: 'EqualTo',
+            value: false,
+          }),
+          fields: [
+            field.label({
+              label: {
+                text: 'Read the Form N-400 Instructions before you decide whether or not you would like to legally change your name',
+                bold: false,
+              },
+            }),
+            field.row(
+              field.text({
+                label: 'Given Name (First Name)',
+                property: 'new_firstname',
+              }),
+              field.text({
+                label: 'Middle Name (if applicable)',
+                property: 'new_middlename',
+              }),
+              field.text({
+                label: 'Family Name (Last Name)',
+                property: 'new_lastname',
+              }),
+            ),
+          ],
+        }),
+        field.section({
+          id: 'c756624a-7ca6-4fc3-a0f3-13b446aadf65',
+          property: 'residency-set',
+          fields: [
+            field.yesno({
+              label:
+                'Are you 50 years of age or older and have you lived in the United States as a lawful permanent resident for periods totaling at least 20 years at the time you file your Form N-400?',
+              property: 'lang50',
+            }),
+            field.yesno({
+              label:
+                'Are you 55 years of age or older and have you lived in the United States as a lawful permanent resident for periods totaling at least 15 years at the time you file your Form N-400?',
+              property: 'lang55',
+            }),
+            field.yesno({
+              label:
+                'Are you 65 years of age or older and have you lived in the United States as a lawful permanent resident for periods totaling at least 5 years at the time you file your Form N-400?  (If you meet this requirement, you will also be given a simplified version of the civics test.)',
+              property: 'lang65',
+            }),
+          ],
+        }),
       ],
+    }),
+    field.container({
+      label: 'Accommodations for Individuals With Disabilities and/or Impairments ',
+      fields: [
+        field.section({
+          property: 'accom_disability-set',
+          fields: [
+            field.yesno({
+              label:
+                'Are you requesting an accommodation because of your disabilities and/or impairments?',
+              property: 'accom_request',
+            }),
+          ],
+        }),
+        field.section({
+          label: 'Accommodation Requested',
+          property: 'accom_set',
+          disabled: condition({
+            property: 'accom_request',
+            operator: 'EqualTo',
+            value: false,
+          }),
+          fields: [
+            field.consent({
+              content: 'I am deaf or hard of hearing and request the following accommodation.',
+              property: 'accom_deaf',
+            }),
+            field.text({
+              label:
+                '(If you are requesting a sign-language interpreter, indicate for which language (for example, American Sign Language).',
+              property: 'accom_deaf_asst',
+            }),
+            field.consent({
+              content: 'I am blind or have low vision and request the following accommodation:',
+              property: 'accom_blind',
+            }),
+            field.text({
+              label:
+                'Describe the nature of your disability and/or impairment and the accommodation you are requesting',
+              property: 'accom_blind_asst',
+            }),
+            field.consent({
+              content:
+                'I have another type of disability and/or impairment (for example, use a wheelchair).',
+              property: 'accom_other',
+            }),
+            field.text({
+              label:
+                'Describe the nature of your disability and/or impairment and the accommodation you are requesting',
+              property: 'accom_other_asst',
+            }),
+          ],
+        }),
+      ],
+      property: 'accom_disability',
     }),
   ],
 })

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { classifications } from '@v3technology/definitions'
-import { getDefinitions } from '@v3technology/components'
-
+import { useComponentContext } from '~/components'
+const { getDefinitions } = useComponentContext()
 const definitions = getDefinitions()
 </script>
 

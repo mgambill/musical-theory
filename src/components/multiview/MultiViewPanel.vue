@@ -3,7 +3,7 @@ import { MultiViewInjectionKey } from './'
 
 defineOptions({ inheritAttrs: false })
 
-type Props = { label: string; custom?: boolean }
+type Props = { label?: string; custom?: boolean }
 
 const { label, custom = false } = defineProps<Props>()
 const { activeIndex, register } = inject(MultiViewInjectionKey)!

@@ -3,7 +3,7 @@ import { computed, ref, type Component } from 'vue'
 import * as PrimeVue from 'primevue'
 
 import { useEditorStore } from './store'
-import { DISPLAY_MODES, type DisplayModes } from '@v3technology/components'
+import { DISPLAY_MODES, type DisplayModes } from '~/components'
 
 // views
 import EditView from './views/EditView.vue'

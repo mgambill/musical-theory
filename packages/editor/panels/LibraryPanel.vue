@@ -5,6 +5,7 @@ import { useEditorStoreRef, useEditorStore } from '../store'
 const { setCurrentForm } = useEditorStore()
 const { library } = useEditorStoreRef()
 const onClick = (f: Form) => {
+  console.log('library panel clicked')
   setCurrentForm(f)
 }
 </script>

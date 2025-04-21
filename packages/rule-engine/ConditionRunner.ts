@@ -105,7 +105,6 @@ export class ConditionRunner {
 
     if ('property' in condition && condition.property !== undefined) {
 
-
       // eslint-disable-next-line
       let [value, modifiers] = this.getValueByPath(item, condition.property)
 

@@ -57,12 +57,12 @@ const { field } = defineProps<{ field: Field }>();
   </template>
   <template v-else-if="field.control === 'heading'">
     <BaseField :field="field">
-      <h3 class="font-medium text-lg">{{ field.label.text }}</h3>
+      <h3 v-if="field.label?.text" class="font-medium text-lg">{{ field.label?.text }}</h3>
     </BaseField>
   </template>
   <template v-else-if="field.control === 'label'">
     <BaseField :field="field">
-      <p class="font-medium">{{ field.label.text }}</p>
+      <p v-if="field.label?.text" class="font-medium">{{ field.label?.text }}</p>
     </BaseField>
   </template>
   <template v-else-if="field.control === 'paragraph'">

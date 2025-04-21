@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 6722",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -17,11 +17,9 @@
   "dependencies": {
     "@primeuix/themes": "^1.0.0",
     "@primevue/core": "^4.2.5",
-    "@v3technology/builder": "^2.0.1",
-    "@v3technology/components": "^2.0.9",
-    "@v3technology/core": "^2.0.3",
-    "@v3technology/definitions": "^2.0.1",
-    "@v3technology/rule-engine": "^2.0.8",
+    "@v3technology/builder": "^2.0.9",
+    "@v3technology/core": "^2.0.5",
+    "@v3technology/definitions": "^2.0.6",
     "@vueuse/core": "^10.11.1",
     "pinia": "^3.0.1",
     "pocketbase": "^0.25.1",
@@ -54,6 +52,7 @@
     "unplugin-vue-router": "^0.11.2",
     "vite": "^6.1.0",
     "vite-plugin-vue-devtools": "^7.7.2",
+    "vitest": "^3.0.9",
     "vue-tsc": "^2.2.2"
   }
 }

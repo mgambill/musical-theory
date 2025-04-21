@@ -3,11 +3,12 @@ import { computed, watchEffect } from 'vue'
 import { useToggle } from '@vueuse/core'
 import { type ControlDefinition, type Field, type FieldLabel } from '@v3technology/core'
 import * as PrimveVue from 'primevue'
-import { getDefinitions, useFormState } from '@v3technology/components'
-import { FieldComponent } from '@v3technology/components/core'
+import { useComponentContext, useFormState, FieldComponent } from '~/components'
+
+const { getDefinitions } = useComponentContext()
+const definitions = getDefinitions()
 
 const field = defineModel<Field>('field')
-const definitions = getDefinitions()
 const def = ref<ControlDefinition>()
 const isQuestion = computed(() => {
   if (!def.value) return false

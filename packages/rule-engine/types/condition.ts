@@ -1,4 +1,4 @@
-export type ComparisonOperators = 'Between' | 'StartsWith' | 'EndsWith' | 'Like' | 'NotLike' | 'In' | 'NotIn' | 'LessThanOrEqualTo' | 'LessThan' | 'GreaterThanOrEqualTo' | 'GreaterThan' | 'EqualTo' | 'NotEqualTo'
+export type ComparisonOperators = 'Between' | 'StartsWith' | 'EndsWith' | 'Like' | 'NotLike' | 'In' | 'NotIn' | 'LessThanOrEqualTo' | 'LessThan' | 'GreaterThanOrEqualTo' | 'GreaterThan' | 'EqualTo' | 'NotEqualTo' | 'Contains' | 'NotContains' | 'Empty' | 'NotEmpty'
 
 export type LogicicalOperators = 'And' | 'Or' | 'Not'
 
@@ -6,7 +6,7 @@ export type QuantifierOperators = 'Any' | 'All'
 
 export type ValueStateOperators = 'IsFalse' | 'IsTrue' | 'IsEmpty' | 'IsNotEmpty' | 'IsNull' | 'IsNotNull' | 'IsUndefined' | 'IsDefined' | 'IsString' | 'IsArray' | 'IsDate' | 'IsNumber' | 'IsBoolean' | 'IsObject'
 export type ConditionOperator = ComparisonOperators | LogicicalOperators | QuantifierOperators | ValueStateOperators
-import { modifiers } from '../utils/modifiers'
+
 
 type SingleValue = string | number | boolean | Date
 

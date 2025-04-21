@@ -2,12 +2,13 @@
 import { computed } from 'vue'
 import type { Field, Form } from '@v3technology/core'
 import { useEditorStore } from '../store'
-import { resolveComponentDefinition } from '@v3technology/components'
+import { useComponentContext } from '~/components'
 
 const { useBinding } = useEditorStore()
 type Props = { field: Field; parent: Field | Form; root?: boolean }
 const { field, root = false } = defineProps<Props>()
-const def = computed(() => resolveComponentDefinition(field.control)!)
+const { findDefinitionById } = useComponentContext()
+const def = computed(() => findDefinitionById(field.control)!)
 
 const bindings = useBinding(field)
 </script>

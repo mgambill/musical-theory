@@ -2,11 +2,12 @@
 import * as PrimeVue from 'primevue'
 import type { Field, Option } from '@v3technology/core'
 import { useEditorStore } from '../store'
-import { resolveComponentDefinition } from '@v3technology/components'
+import { useComponentContext } from '~/components'
 
 const field = defineModel<Field>('field')
 const store = useEditorStore()
-const def = computed(() => resolveComponentDefinition(field.value?.control))
+const { findDefinitionById } = useComponentContext()
+const def = computed(() => field.value && findDefinitionById(field.value?.control)!)
 
 const onRemoveOptionClick = (option: Option) => {
   store.removeOption(field.value!, option)
